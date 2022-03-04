@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neomorphic_pokedex/bloc/pokemon_event.dart';
 import 'package:neomorphic_pokedex/bloc/pokemon_state.dart';
 
-import '../pokemon_repository.dart';
+import '../data/pokemon_repository.dart';
 
 class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   final _pokemonRepository = PokemonRepository();
@@ -15,7 +15,8 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
       yield PokemonLoadInProgress();
 
       try {
-        final pokemonPageResponse = await _pokemonRepository.getPokemonPage(event.page);
+        final pokemonPageResponse =
+            await _pokemonRepository.getPokemonPage(event.page);
         yield PokemonPageLoadSuccess(
             pokemonListings: pokemonPageResponse.pokemonListings,
             canLoadNextPage: pokemonPageResponse.canLoadNextPage);
